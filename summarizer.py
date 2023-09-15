@@ -5,7 +5,7 @@ from string import punctuation
 from heapq import nlargest
 
 # Carregar o arquivo CSV
-df = pd.read_csv('textos.csv')
+df = pd.read_csv('emails.csv')
 
 # Função para criar o resumo de um texto
 def create_summary(text):
