@@ -3,12 +3,11 @@ import spacy
 from spacy.lang.pt.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
+from fetchEmails import fetch_and_save_emails_to_csv
 
-# Carregar o arquivo CSV
-df = pd.read_csv('emails.csv')
 
-# Função para criar o resumo de um texto
 def create_summary(text):
+ 
     stopwords = list(STOP_WORDS)
 
     nlp = spacy.load('pt_core_news_sm')
@@ -53,8 +52,8 @@ def create_summary(text):
 
     return summary
 
-# Aplicar a função create_summary à coluna "conteudo"
-df['resumo'] = df['conteudo'].apply(create_summary)
-
-# Salvar o DataFrame com os resumos de volta em um novo arquivo CSV
-df.to_csv('emails_resumidos.csv', index=False)
+def apply():
+    fetch_and_save_emails_to_csv()
+    df = pd.read_csv('emails_details.csv')
+    df['summary'] = df['body'].apply(create_summary)
+    df.to_csv('emails_resumidos.csv', index=False)
